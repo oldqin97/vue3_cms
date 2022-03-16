@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-16 20:49:37
- * @LastEditTime: 2022-03-16 22:43:33
+ * @LastEditTime: 2022-03-16 23:23:50
  * @FilePath: \vue3_cms\src\App.vue
  *  -> The best way to explain it is to do it
 -->
@@ -9,8 +9,8 @@
   <div>
     <h2>App</h2>
 
-    <button @click="getData">getData</button>
-    <button @click="cancelHttp">cancelHttp</button>
+    <el-button @click="getData">getData</el-button>
+    <el-button @click="cancelHttp">cancelHttp</el-button>
   </div>
 </template>
 
@@ -23,7 +23,6 @@ export default defineComponent({
   name: 'App',
   setup() {
 
-    let cancel
     const getData = () => {
       oqRequest.request({
         url: '/home/multidata',
