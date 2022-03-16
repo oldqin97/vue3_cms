@@ -1,0 +1,33 @@
+{
+  "name": "vue3_cms",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^1.1.1",
+    "axios": "^0.26.1",
+    "core-js": "^3.6.5",
+    "element-plus": "^2.1.2",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.13",
+    "@vue/cli-service": "~4.5.13",
+    "@vue/compiler-sfc": "^3.0.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "unplugin-element-plus": "^0.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
