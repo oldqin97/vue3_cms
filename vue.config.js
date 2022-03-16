@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 20:50:53
- * @LastEditTime: 2022-03-16 20:50:55
+ * @LastEditTime: 2022-03-16 21:02:06
  * @FilePath: \ReleanVue\vue3_cms\vue.config.js
  *  -> The best way to explain it is to do it
  */
@@ -12,10 +12,10 @@
  * @FilePath: \vue3-ts-cms\vue.config.js
  *  -> The best way to explain it is to do it
  */
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  outputDir: './build',
+  outputDir: "./build",
   // publicPath: "./",
   devServer: {
     port: 3001,
@@ -33,14 +33,14 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        views: '@/views',
+        views: "@/views",
       },
     },
-    // plugins: [
-    //   require('unplugin-element-plus/webpack')({
-    //     // options
-    //   }),
-    // ],
+    plugins: [
+      require("unplugin-element-plus/webpack")({
+        // options
+      }),
+    ],
   },
   // configureWebpack: (config) => {
   //   config.resolve.alias = {
