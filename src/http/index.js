@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 21:02:27
- * @LastEditTime: 2022-03-16 22:42:02
+ * @LastEditTime: 2022-03-17 07:57:07
  * @FilePath: \vue3_cms\src\http\index.js
  *  -> The best way to explain it is to do it
  */
@@ -15,11 +15,6 @@ const oqRequest = new OQRequest({
   hooks: {
     requestInterceptor(config) {
       // console.log('请求成功的拦截');
-      // 携带token的拦截
-      let token = '111';
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
       return config;
     },
     requestInterceptorCatch(error) {
