@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-17 17:48:02
- * @LastEditTime: 2022-03-17 21:13:54
+ * @LastEditTime: 2022-03-17 22:46:50
  * @FilePath: \vue3_cms\src\views\login\cpns\LoginPanel.vue
  *  -> The best way to explain it is to do it
 -->
@@ -18,7 +18,7 @@
             <span>登录</span>
           </span>
         </template>
-        <login-account />
+        <login-account ref="accountRef" />
       </el-tab-pane>
 
       <el-tab-pane>
@@ -33,17 +33,40 @@
         <login-phone />
       </el-tab-pane>
     </el-tabs>
+
+    <div class="account-control">
+      <el-checkbox v-model="isKeepPassword">记住密码</el-checkbox>
+      <el-link type="primary">忘记密码</el-link>
+    </div>
+    <el-button type="primary" class="login-btn" @click="handleClick"
+      >立即登录</el-button
+    >
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import LoginPhone from './LoginPhone.vue';
 import LoginAccount from './LoginAccount.vue';
 
 export default defineComponent({
   name: 'LoginPanel',
   components: { LoginPhone, LoginAccount },
+  setup() {
+    const isKeepPassword = ref(true);
+
+    const accountRef = ref(null);
+
+    const handleClick = () => {
+      console.log('立即登录');
+      accountRef.value?.loginAction();
+    };
+    return {
+      isKeepPassword,
+      handleClick,
+      accountRef,
+    };
+  },
 });
 </script>
 
@@ -62,6 +85,14 @@ export default defineComponent({
       margin-top: 5px;
       margin-right: 5px;
     }
+  }
+  .account-control {
+    display: flex;
+    justify-content: space-between;
+  }
+  .login-btn {
+    margin-top: 10px;
+    width: 100%;
   }
 }
 </style>
