@@ -1,13 +1,14 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 21:02:27
- * @LastEditTime: 2022-03-17 07:57:07
+ * @LastEditTime: 2022-03-18 03:20:48
  * @FilePath: \vue3_cms\src\http\index.js
  *  -> The best way to explain it is to do it
  */
 
 import { OQRequest, cancelRequest } from './request';
 import { BASE_RUL, TIME_OUT } from './request/config';
+import localCache from '@/utils/Cache.js';
 
 const oqRequest = new OQRequest({
   baseURL: BASE_RUL,
@@ -15,6 +16,13 @@ const oqRequest = new OQRequest({
   hooks: {
     requestInterceptor(config) {
       // console.log('请求成功的拦截');
+      // ~ 携带token的拦截
+      const token = localCache.getCache('token');
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
       return config;
     },
     requestInterceptorCatch(error) {

@@ -1,15 +1,20 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-17 17:48:02
- * @LastEditTime: 2022-03-17 23:21:20
+ * @LastEditTime: 2022-03-18 02:27:16
  * @FilePath: \vue3_cms\src\views\login\cpns\LoginPanel.vue
  *  -> The best way to explain it is to do it
 -->
 <template>
   <div class="login-panel">
     <h1 class="title">后台管理系统</h1>
-    <el-tabs type="border-card" class="demo-tabs" stretch>
-      <el-tab-pane>
+    <el-tabs
+      type="border-card"
+      class="demo-tabs"
+      stretch
+      v-model="currentTab"
+    >
+      <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <span class="icon-wrapper">
@@ -21,7 +26,7 @@
         <login-account ref="accountRef" />
       </el-tab-pane>
 
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span class="custom-tabs-label">
             <span class="icon-wrapper">
@@ -30,7 +35,7 @@
             <span>手机登录</span>
           </span>
         </template>
-        <login-phone />
+        <login-phone ref="phoneRef" />
       </el-tab-pane>
     </el-tabs>
 
@@ -57,15 +62,23 @@ export default defineComponent({
   components: { LoginPhone, LoginAccount },
   setup() {
     const isKeepPassword = ref(true);
-
     const accountRef = ref(null);
+    const phoneRef = ref(null);
+    const currentTab = ref('account');
 
     const handleClickLogin = () => {
-      accountRef.value.loginAction(isKeepPassword.value);
+      if (currentTab.value === 'account') {
+        accountRef.value.loginAction(isKeepPassword.value);
+      } else {
+        console.log('手机登录');
+        // phoneRef.value.login()
+      }
     };
     return {
       isKeepPassword,
       accountRef,
+      currentTab,
+      phoneRef,
       handleClickLogin,
     };
   },

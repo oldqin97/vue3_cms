@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-17 19:20:45
- * @LastEditTime: 2022-03-17 23:31:19
+ * @LastEditTime: 2022-03-18 03:02:46
  * @FilePath: \vue3_cms\src\views\login\cpns\LoginAccount.vue
  *  -> The best way to explain it is to do it
 -->
@@ -26,6 +26,7 @@
 
 <script>
 import { defineComponent, reactive, ref } from 'vue';
+import { useStore } from 'vuex';
 
 // + 表单验证规则
 import { rules } from '../config';
@@ -34,6 +35,8 @@ import localCache from '@/utils/Cache.js';
 export default defineComponent({
   name: 'LoginAccount',
   setup() {
+    const store = useStore();
+
     const account = reactive({
       name: localCache.getCache('name') ?? undefined,
       password: localCache.getCache('password') ?? undefined,
@@ -41,10 +44,9 @@ export default defineComponent({
 
     const formRef = ref(null);
 
-    // + 登录验证函数
-
     // + 登录函数
     const loginAction = isKeepPasswordTag => {
+      // + 登录验证函数
       formRef.value.validate(valid => {
         if (valid) {
           // + 判断是否需要记住密码
@@ -55,6 +57,7 @@ export default defineComponent({
             localCache.deleteCache('password');
           }
           // + 开始登录验证
+          store.dispatch('login/accountLoginAction', { ...account });
         }
       });
     };
