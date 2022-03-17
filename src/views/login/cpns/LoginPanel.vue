@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-17 17:48:02
- * @LastEditTime: 2022-03-17 22:56:29
+ * @LastEditTime: 2022-03-17 23:21:20
  * @FilePath: \vue3_cms\src\views\login\cpns\LoginPanel.vue
  *  -> The best way to explain it is to do it
 -->
@@ -61,13 +61,12 @@ export default defineComponent({
     const accountRef = ref(null);
 
     const handleClickLogin = () => {
-      console.log('立即登录');
-      accountRef.value?.loginAction();
+      accountRef.value.loginAction(isKeepPassword.value);
     };
     return {
       isKeepPassword,
-      handleClickLogin,
       accountRef,
+      handleClickLogin,
     };
   },
 });
