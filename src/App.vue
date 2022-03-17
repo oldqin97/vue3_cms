@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-16 20:49:37
- * @LastEditTime: 2022-03-17 07:29:04
+ * @LastEditTime: 2022-03-17 08:54:35
  * @FilePath: \vue3_cms\src\App.vue
  *  -> The best way to explain it is to do it
 -->
@@ -30,16 +30,16 @@ export default defineComponent({
         .request({
           url: '/home/multidata',
           method: 'GET',
-          // hooks: {
-          //   requestInterceptor(config) {
-          //     console.log('单独处理的request')
-          //     return config
-          //   },
-          //   responseInterceptor(res) {
-          //     console.log('单独出来的response')
-          //     return res
-          //   }
-          // },
+          hooks: {
+            requestInterceptor(config) {
+              console.log('单独处理的request')
+              return config
+            },
+            responseInterceptor(res) {
+              console.log('单独出来的response')
+              return res
+            }
+          },
           isCancelRequest: true,
         })
         .then(res => {
