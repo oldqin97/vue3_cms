@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 17:41:48
- * @LastEditTime: 2022-03-18 18:44:19
+ * @LastEditTime: 2022-03-18 18:51:40
  * @FilePath: \vue3_cms\src\views\main\Main.vue
  *  -> The best way to explain it is to do it
 -->
@@ -9,7 +9,7 @@
 <template>
   <div class="main">
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="300px">Aside</el-aside>
       <el-container>
         <el-header>Header</el-header>
         <el-main>Main</el-main>
