@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:16:58
- * @LastEditTime: 2022-03-17 22:26:34
+ * @LastEditTime: 2022-03-18 18:42:20
  * @FilePath: \vue3_cms\src\global\plugins\pluginElement.js
  *  -> The best way to explain it is to do it
  */
@@ -16,6 +16,10 @@ import {
   ElInput,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
 } from 'element-plus';
 import { Edit, User, Iphone } from '@element-plus/icons-vue';
 const components = [
@@ -28,6 +32,10 @@ const components = [
   ElInput,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
   // ~~~~~~~~~~~~~~~~~~~~~~~~
   Edit,
   User,
