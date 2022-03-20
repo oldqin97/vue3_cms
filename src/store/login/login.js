@@ -1,12 +1,14 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 02:06:03
- * @LastEditTime: 2022-03-18 18:07:27
+ * @LastEditTime: 2022-03-20 22:08:30
  * @FilePath: \vue3_cms\src\store\login\login.js
  *  -> The best way to explain it is to do it
  */
 
 import router from '@/router';
+
+import { mapMenusToRoutes } from '@/utils/MapMenus.js';
 
 import {
   accountLoginRequest,
@@ -34,6 +36,14 @@ const loginModule = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus;
+
+      // + userMenus 映射到routes里面
+      const routes = mapMenusToRoutes(userMenus);
+      // console.log(routes);
+      // + 然后将routes 添加到 router.main.children里面
+      routes.forEach(route => {
+        router.addRoute('main', route);
+      });
     },
   },
   actions: {

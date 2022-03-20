@@ -1,11 +1,10 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:32:36
- * @LastEditTime: 2022-03-18 18:17:35
+ * @LastEditTime: 2022-03-20 21:25:07
  * @FilePath: \vue3_cms\src\router\index.js
  *  -> The best way to explain it is to do it
  */
-
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Login from '@/views/login/Login.vue';
@@ -19,11 +18,19 @@ const routes = [
   },
   {
     path: '/login',
+    name: 'login',
     component: Login,
   },
   {
     path: '/main',
+    name: 'main',
     component: () => import('@/views/main/Main.vue'),
+    // children: [], -> 根据userMenus来配置
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/notFound/NotFound.vue'),
   },
 ];
 
@@ -32,6 +39,7 @@ const router = createRouter({
   history: createWebHistory(),
 });
 
+// + 导航守卫做
 router.beforeEach(to => {
   if (to.path !== '/login') {
     const token = localCache.getCache('token');

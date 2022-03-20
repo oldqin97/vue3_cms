@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "21823870",
+      "name": "s-fold",
+      "font_class": "s-fold",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "21823880",
+      "name": "s-unfold",
+      "font_class": "s-unfold",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    }
+  ]
+}

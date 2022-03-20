@@ -1,18 +1,20 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 17:41:48
- * @LastEditTime: 2022-03-18 23:35:17
+ * @LastEditTime: 2022-03-20 22:16:25
  * @FilePath: \vue3_cms\src\views\main\Main.vue
  *  -> The best way to explain it is to do it
 -->
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="200px">
+      <el-aside :width="isCollapse ? '55px' : '210px'">
         <nav-menu :collapse="isCollapse" />
       </el-aside>
       <el-container class="page">
-        <el-header class="page-header">Header</el-header>
+        <el-header class="page-header">
+          <nav-header @foldChange="handleFoldChange" />
+        </el-header>
         <el-main class="page-content">
           <div class="page-info">
             <router-view></router-view>
@@ -26,15 +28,21 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import { NavMenu } from '@/components/navMenu';
+import NavHeader from '@/components/navHeader';
 
 export default defineComponent({
   name: 'Main',
-  components: { NavMenu },
+  components: { NavMenu, NavHeader },
   setup() {
     const isCollapse = ref(false);
+    const handleFoldChange = isFold => {
+      console.log(isFold);
+      isCollapse.value = isFold;
+    };
 
     return {
       isCollapse,
+      handleFoldChange,
     };
   },
 });
@@ -83,9 +91,8 @@ export default defineComponent({
   cursor: pointer;
   background-color: #001529;
   transition: width 0.3s linear;
-  scrollbar-width: none; /* firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
   }

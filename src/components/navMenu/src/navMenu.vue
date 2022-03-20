@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 21:54:35
- * @LastEditTime: 2022-03-19 23:16:21
+ * @LastEditTime: 2022-03-20 22:15:53
  * @FilePath: \vue3_cms\src\components\navMenu\src\navMenu.vue
  *  -> The best way to explain it is to do it
 -->
@@ -9,7 +9,7 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="logo-img" src="~@/assets/img/logo.svg" alt="logo" />
-      <span class="logo-title">CMS</span>
+      <span v-if="!collapse" class="logo-title">CMS</span>
     </div>
 
     <el-menu
@@ -18,6 +18,8 @@
       class="el-menu-vertical"
       default-active="2"
       text-color="#b7bdc3"
+      :unique-opened="false"
+      :collapse="collapse"
     >
       <template v-for="item in userMenus" :key="item.id">
         <template v-if="item.type === 1">
@@ -28,15 +30,18 @@
                 style="width: 1.5em"
                 :is="item.icon.split('-').pop()"
               />
-              <span>{{ item.name }}</span>
+              <span>{{ item.name }} {{ item.id }}</span>
             </template>
 
             <template
               v-for="subitem in item.children"
               :key="subitem.id"
             >
-              <el-menu-item :index="subitem.id + ''">
-                <span>{{ subitem.name }}</span>
+              <el-menu-item
+                :index="subitem.id + ''"
+                @click="handleMenuItemClick(subitem)"
+              >
+                <span>{{ subitem.name }} {{ subitem.id }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
@@ -68,14 +73,20 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const currentPath = route.path;
-    console.log(currentPath);
 
     // + data
     const menu = '';
     const defaultValue = ref();
 
+    const handleMenuItemClick = item => {
+      router.push({
+        path: item.url ?? '/not-found',
+      });
+    };
+
     return {
       userMenus,
+      handleMenuItemClick,
     };
   },
 });
@@ -105,6 +116,7 @@ export default defineComponent({
     }
   }
   .el-menu-vertical {
+    border-right: none;
     .menu-icon {
       margin-right: 10px;
     }
