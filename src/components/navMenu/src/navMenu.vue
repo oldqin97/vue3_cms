@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 21:54:35
- * @LastEditTime: 2022-03-20 22:15:53
+ * @LastEditTime: 2022-03-22 23:55:19
  * @FilePath: \vue3_cms\src\components\navMenu\src\navMenu.vue
  *  -> The best way to explain it is to do it
 -->
@@ -16,7 +16,7 @@
       active-text-color="#0a60bd"
       background-color="#0c2135"
       class="el-menu-vertical"
-      default-active="2"
+      :default-active="defaultValue"
       text-color="#b7bdc3"
       :unique-opened="false"
       :collapse="collapse"
@@ -30,7 +30,7 @@
                 style="width: 1.5em"
                 :is="item.icon.split('-').pop()"
               />
-              <span>{{ item.name }} {{ item.id }}</span>
+              <span>{{ item.name }}</span>
             </template>
 
             <template
@@ -41,7 +41,7 @@
                 :index="subitem.id + ''"
                 @click="handleMenuItemClick(subitem)"
               >
-                <span>{{ subitem.name }} {{ subitem.id }}</span>
+                <span>{{ subitem.name }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
@@ -55,6 +55,8 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter, useRoute } from 'vue-router';
+
+import { pathMaoToMenu } from '@/utils/MapMenus.js';
 
 export default defineComponent({
   name: 'navMenu',
@@ -75,8 +77,9 @@ export default defineComponent({
     const currentPath = route.path;
 
     // + data
-    const menu = '';
-    const defaultValue = ref();
+    const menu = pathMaoToMenu(userMenus.value, currentPath);
+    const defaultValue = ref((menu?.id ?? 2) + '');
+
 
     const handleMenuItemClick = item => {
       router.push({
@@ -86,6 +89,7 @@ export default defineComponent({
 
     return {
       userMenus,
+      defaultValue,
       handleMenuItemClick,
     };
   },

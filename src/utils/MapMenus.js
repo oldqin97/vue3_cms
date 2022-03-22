@@ -1,12 +1,12 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 22:21:40
- * @LastEditTime: 2022-03-21 23:56:21
+ * @LastEditTime: 2022-03-23 00:44:42
  * @FilePath: \vue3_cms\src\utils\MapMenus.js
  *  -> The best way to explain it is to do it
  */
 
-import { useRoute, useRouter } from 'vue-router';
+let firstMenu = null;
 
 export function mapMenusToRoutes(userMenus) {
   const routes = [];
@@ -28,6 +28,7 @@ export function mapMenusToRoutes(userMenus) {
           return route.path === menu.url;
         });
         if (route) routes.push(route);
+        if (!firstMenu) firstMenu = menu;
       } else {
         _recurseGetRoute(menu.children);
       }
@@ -38,3 +39,33 @@ export function mapMenusToRoutes(userMenus) {
 
   return routes;
 }
+
+export function pathMaoToMenu(userMenus, currentPath, breadcrumbs) {
+  for (let menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMaoToMenu(
+        menu.children ?? [],
+        currentPath,
+      );
+      if (findMenu) {
+        if (breadcrumbs) {
+          breadcrumbs.push({ name: menu.name });
+          breadcrumbs.push({
+            name: findMenu.name,
+          });
+        }
+        return findMenu;
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu;
+    }
+  }
+}
+
+export function pathMapBreadcrumbs(userMenus, currentPath) {
+  const breadcrumbs = [];
+  pathMaoToMenu(userMenus, currentPath, breadcrumbs);
+  return breadcrumbs;
+}
+
+export { firstMenu };

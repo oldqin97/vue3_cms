@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-19 23:38:26
- * @LastEditTime: 2022-03-22 00:15:42
+ * @LastEditTime: 2022-03-23 00:40:11
  * @FilePath: \vue3_cms\src\components\navHeader\NavHeader.vue
  *  -> The best way to explain it is to do it
 -->
@@ -15,16 +15,21 @@
     >
     </i>
     <div class="content">
-      <div>面板屑</div>
+      <breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
+import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+
+import { pathMapBreadcrumbs } from '@/utils/MapMenus.js';
 
 import UserInfo from '@/components/navHeader/UserInfo.vue';
+import Breadcrumb from '@/base-ui/breadcrumb';
 
 export default defineComponent({
   name: 'navHeader',
@@ -35,12 +40,22 @@ export default defineComponent({
       isFold.value = !isFold.value;
       emit('foldChange', isFold.value);
     };
+
+    // + 面包屑数据 [{}]
+    const store = useStore();
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus;
+      const currentPath = useRoute().path;
+      return pathMapBreadcrumbs(userMenus, currentPath);
+    });
+    console.log(breadcrumbs);
     return {
       isFold,
+      breadcrumbs,
       handleFoldClick,
     };
   },
-  components: { UserInfo },
+  components: { UserInfo, Breadcrumb },
 });
 </script>
 

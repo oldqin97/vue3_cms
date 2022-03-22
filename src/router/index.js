@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:32:36
- * @LastEditTime: 2022-03-22 01:07:18
+ * @LastEditTime: 2022-03-23 00:00:10
  * @FilePath: \vue3_cms\src\router\index.js
  *  -> The best way to explain it is to do it
  */
@@ -10,8 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '@/views/login/Login.vue';
 
 import localCache from '@/utils/Cache.js';
-import { mapMenusToRoutes } from '@/utils/MapMenus.js';
-import store from '@/store';
+import { firstMenu } from '@/utils/MapMenus.js';
 
 const routes = [
   {
@@ -49,14 +48,12 @@ router.beforeEach(to => {
       return '/login';
     }
 
-    // const userMenus = store.state.login.userMenus;
-    // // + userMenus 映射到routes里面
-    // const routes = mapMenusToRoutes(userMenus);
-    // // console.log(routes);
-    // // + 然后将routes 添加到 router.main.children里面
-    // routes.forEach(route => {
-    //   router.addRoute('main', route);
-    // });
+    // console.log(router.getRoutes());
+    // console.log(to);
+
+    if (to.path === '/main') {
+      return firstMenu.url;
+    }
   }
 });
 

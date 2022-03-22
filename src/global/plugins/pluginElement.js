@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:16:58
- * @LastEditTime: 2022-03-22 00:59:57
+ * @LastEditTime: 2022-03-23 00:05:47
  * @FilePath: \vue3_cms\src\global\plugins\pluginElement.js
  *  -> The best way to explain it is to do it
  */
@@ -33,6 +33,8 @@ import {
   ElSelect,
   ElOption,
   ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 } from 'element-plus';
 import {
   Edit,
@@ -47,6 +49,8 @@ import {
   Cpu,
 } from '@element-plus/icons-vue';
 const components = [
+  ElBreadcrumb,
+  ElBreadcrumbItem,
   ElDatePicker,
   ElSelect,
   ElOption,
