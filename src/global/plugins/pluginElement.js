@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:16:58
- * @LastEditTime: 2022-03-19 23:43:30
+ * @LastEditTime: 2022-03-22 00:59:57
  * @FilePath: \vue3_cms\src\global\plugins\pluginElement.js
  *  -> The best way to explain it is to do it
  */
@@ -24,6 +24,15 @@ import {
   ElSubMenu,
   ElMenuItem,
   ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
 } from 'element-plus';
 import {
   Edit,
@@ -33,8 +42,16 @@ import {
   Setting,
   Goods,
   Fold,
+  ArrowDown,
+  Close,
+  Cpu,
 } from '@element-plus/icons-vue';
 const components = [
+  ElDatePicker,
+  ElSelect,
+  ElOption,
+  ElRow,
+  ElCol,
   ElButton,
   ElIcon,
   ElTabs,
@@ -52,6 +69,10 @@ const components = [
   ElSubMenu,
   ElMenuItem,
   ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
   // ~~~~~~~~~~~~~~~~~~~~~~~~
   Edit,
   User,
@@ -60,6 +81,9 @@ const components = [
   Setting,
   Goods,
   Fold,
+  ArrowDown,
+  Close,
+  Cpu,
 ];
 
 export default function (app) {

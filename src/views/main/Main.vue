@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 17:41:48
- * @LastEditTime: 2022-03-20 22:16:25
+ * @LastEditTime: 2022-03-22 00:46:46
  * @FilePath: \vue3_cms\src\views\main\Main.vue
  *  -> The best way to explain it is to do it
 -->
@@ -36,7 +36,6 @@ export default defineComponent({
   setup() {
     const isCollapse = ref(false);
     const handleFoldChange = isFold => {
-      console.log(isFold);
       isCollapse.value = isFold;
     };
 
@@ -99,6 +98,7 @@ export default defineComponent({
 }
 
 .el-main {
+  padding: 15px;
   color: #333;
   text-align: center;
   background-color: #f0f2f5;
