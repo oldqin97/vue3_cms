@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-17 19:20:45
- * @LastEditTime: 2022-03-18 03:02:46
+ * @LastEditTime: 2022-03-28 23:02:54
  * @FilePath: \vue3_cms\src\views\login\cpns\LoginAccount.vue
  *  -> The best way to explain it is to do it
 -->
@@ -36,6 +36,7 @@ export default defineComponent({
   name: 'LoginAccount',
   setup() {
     const store = useStore();
+    console.log(store.state);
 
     const account = reactive({
       name: localCache.getCache('name') ?? undefined,
@@ -56,6 +57,7 @@ export default defineComponent({
           } else {
             localCache.deleteCache('password');
           }
+          console.log(account);
           // + 开始登录验证
           store.dispatch('login/accountLoginAction', { ...account });
         }

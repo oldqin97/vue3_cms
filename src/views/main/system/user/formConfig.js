@@ -1,13 +1,12 @@
 /*
  * @Author: qin
  * @Date: 2022-03-22 22:07:42
- * @LastEditTime: 2022-03-22 22:07:42
- * @FilePath: \vue3_cms\src\router\main\system\user\formConfig.js
+ * @LastEditTime: 2022-03-25 20:17:48
+ * @FilePath: \vue3_cms\src\views\main\system\user\formConfig.js
  *  -> The best way to explain it is to do it
  */
 const formConfig = {
   labelWidth: '120px',
-
   itemStyle: {
     padding: '20px 30px',
   },
@@ -21,24 +20,28 @@ const formConfig = {
   },
   formItems: [
     {
+      field: 'id',
       type: 'input',
       label: 'ID',
       rules: [],
       placeholder: '请输入ID',
     },
     {
+      field: 'name',
       type: 'input',
       label: '用户名',
       rules: [],
       placeholder: '请输入用户名',
     },
     {
+      field: 'password',
       type: 'password',
       label: '密码',
       rules: [],
       placeholder: '请输入密码',
     },
     {
+      field: 'sport',
       type: 'select',
       label: '喜欢的运动',
       rules: [],
@@ -50,6 +53,7 @@ const formConfig = {
       placeholder: '请选择喜欢的运动',
     },
     {
+      field: 'createTime',
       type: 'datepicker',
       label: '创建时间',
       rules: [],

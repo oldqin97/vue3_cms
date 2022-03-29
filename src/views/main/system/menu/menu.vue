@@ -1,8 +1,8 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-20 21:04:39
- * @LastEditTime: 2022-03-20 21:42:00
- * @FilePath: \vue3_cms\src\views\main\system\menu\menu.vue
+ * @LastEditTime: 2022-03-29 22:07:00
+ * @FilePath: \vue3_cms\src\views\main\system\menu\Menu.vue
  *  -> The best way to explain it is to do it
 -->
 <template>
@@ -11,15 +11,15 @@
   </div>
 </template>
 
-<script >
-import { defineComponent } from 'vue'
+<script>
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'menu',
+  name: 'oq-menu',
   setup() {
-    return {}
-  }
-})
+    return {};
+  },
+});
 </script>
 
 <style scoped></style>

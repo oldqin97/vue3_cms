@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 21:54:35
- * @LastEditTime: 2022-03-22 23:55:19
+ * @LastEditTime: 2022-03-29 22:07:25
  * @FilePath: \vue3_cms\src\components\navMenu\src\navMenu.vue
  *  -> The best way to explain it is to do it
 -->
@@ -56,7 +56,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter, useRoute } from 'vue-router';
 
-import { pathMaoToMenu } from '@/utils/MapMenus.js';
+import { pathMapToMenu } from '@/utils/MapMenus.js';
 
 export default defineComponent({
   name: 'navMenu',
@@ -74,12 +74,13 @@ export default defineComponent({
     // + router
     const router = useRouter();
     const route = useRoute();
+
     const currentPath = route.path;
 
     // + data
-    const menu = pathMaoToMenu(userMenus.value, currentPath);
-    const defaultValue = ref((menu?.id ?? 2) + '');
+    const menu = pathMapToMenu(userMenus.value, currentPath);
 
+    const defaultValue = ref((menu?.id ?? 2) + '');
 
     const handleMenuItemClick = item => {
       router.push({

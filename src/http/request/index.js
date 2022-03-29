@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 20:09:22
- * @LastEditTime: 2022-03-16 22:41:55
+ * @LastEditTime: 2022-03-29 23:11:13
  * @FilePath: \vue3_cms\src\http\request\index.js
  *  -> The best way to explain it is to do it
  */
@@ -10,7 +10,7 @@ import axios from 'axios';
 let source = {};
 let requestList = [];
 
-function cancelRequest(url) {
+function cancelRequest(url, allCancel = false) {
   console.log(requestList.includes(url), url);
   if (
     url &&
@@ -34,11 +34,11 @@ class OQRequest {
     // ~ 每个实例的config配置的拦截器
     this.instance.interceptors.request.use(
       this.hooks?.requestInterceptor,
-      this.hooks?.requestInterceptorCatch
+      this.hooks?.requestInterceptorCatch,
     );
     this.instance.interceptors.response.use(
       this.hooks?.responseInterceptor,
-      this.hooks?.responseInterceptorCatch
+      this.hooks?.responseInterceptorCatch,
     );
 
     // ~ 全局interceptors
@@ -50,7 +50,7 @@ class OQRequest {
       err => {
         // console.log('全局请求拦截器失败');
         return err;
-      }
+      },
     );
     this.instance.interceptors.response.use(
       res => {
@@ -66,7 +66,7 @@ class OQRequest {
       err => {
         // console.log('全局响应拦截器失败');
         return err;
-      }
+      },
     );
   }
 
@@ -79,13 +79,13 @@ class OQRequest {
       if (requestList.length) {
         cancelRequest(config.url);
       }
+
       if (config.isCancelRequest) {
         requestList.push(config.url);
         config.cancelToken = new axios.CancelToken(c => {
           source[config.url] = c;
         });
       }
-      // console.log(requestList, source);
 
       this.instance
         .request(config)

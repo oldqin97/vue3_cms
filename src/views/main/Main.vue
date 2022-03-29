@@ -1,20 +1,24 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 17:41:48
- * @LastEditTime: 2022-03-22 00:46:46
+ * @LastEditTime: 2022-03-28 23:39:35
  * @FilePath: \vue3_cms\src\views\main\Main.vue
  *  -> The best way to explain it is to do it
 -->
 <template>
   <div class="main">
     <el-container class="main-content">
+      <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '55px' : '210px'">
         <nav-menu :collapse="isCollapse" />
       </el-aside>
+
       <el-container class="page">
+        <!-- 标题栏 -->
         <el-header class="page-header">
           <nav-header @foldChange="handleFoldChange" />
         </el-header>
+        <!-- 内容区 -->
         <el-main class="page-content">
           <div class="page-info">
             <router-view></router-view>

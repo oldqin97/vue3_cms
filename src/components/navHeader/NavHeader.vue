@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-19 23:38:26
- * @LastEditTime: 2022-03-23 00:40:11
+ * @LastEditTime: 2022-03-29 21:00:52
  * @FilePath: \vue3_cms\src\components\navHeader\NavHeader.vue
  *  -> The best way to explain it is to do it
 -->
@@ -43,12 +43,13 @@ export default defineComponent({
 
     // + 面包屑数据 [{}]
     const store = useStore();
+
+    const userMenus = store.state.login.userMenus;
+
     const breadcrumbs = computed(() => {
-      const userMenus = store.state.login.userMenus;
       const currentPath = useRoute().path;
       return pathMapBreadcrumbs(userMenus, currentPath);
     });
-    console.log(breadcrumbs);
     return {
       isFold,
       breadcrumbs,

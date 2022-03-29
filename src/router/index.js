@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:32:36
- * @LastEditTime: 2022-03-23 00:00:10
+ * @LastEditTime: 2022-03-28 22:51:42
  * @FilePath: \vue3_cms\src\router\index.js
  *  -> The best way to explain it is to do it
  */
@@ -47,9 +47,6 @@ router.beforeEach(to => {
     if (!token) {
       return '/login';
     }
-
-    // console.log(router.getRoutes());
-    // console.log(to);
 
     if (to.path === '/main') {
       return firstMenu.url;

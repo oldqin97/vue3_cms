@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 22:21:40
- * @LastEditTime: 2022-03-23 00:44:42
+ * @LastEditTime: 2022-03-29 21:23:13
  * @FilePath: \vue3_cms\src\utils\MapMenus.js
  *  -> The best way to explain it is to do it
  */
@@ -11,7 +11,7 @@ let firstMenu = null;
 export function mapMenusToRoutes(userMenus) {
   const routes = [];
 
-  // + 先去机制默认的所有route
+  // + 获取默认的所有route
   const allRoutes = [];
   // ?  require.context() 属于webpack的一个函数
   const routeFiles = require.context('../router/main', true, /\.js/);
@@ -40,10 +40,10 @@ export function mapMenusToRoutes(userMenus) {
   return routes;
 }
 
-export function pathMaoToMenu(userMenus, currentPath, breadcrumbs) {
+export function pathMapToMenu(userMenus, currentPath, breadcrumbs) {
   for (let menu of userMenus) {
     if (menu.type === 1) {
-      const findMenu = pathMaoToMenu(
+      const findMenu = pathMapToMenu(
         menu.children ?? [],
         currentPath,
       );
@@ -64,7 +64,7 @@ export function pathMaoToMenu(userMenus, currentPath, breadcrumbs) {
 
 export function pathMapBreadcrumbs(userMenus, currentPath) {
   const breadcrumbs = [];
-  pathMaoToMenu(userMenus, currentPath, breadcrumbs);
+  pathMapToMenu(userMenus, currentPath, breadcrumbs);
   return breadcrumbs;
 }
 

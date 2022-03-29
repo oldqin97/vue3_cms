@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 20:49:37
- * @LastEditTime: 2022-03-22 22:22:28
+ * @LastEditTime: 2022-03-29 21:27:47
  * @FilePath: \vue3_cms\src\main.js
  *  -> The best way to explain it is to do it
  */
@@ -20,7 +20,6 @@ const app = createApp(App);
 app.use(globalRegister);
 app.use(store);
 setupStore();
-
 app.use(router);
 
 app.mount('#app');
