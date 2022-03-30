@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:16:58
- * @LastEditTime: 2022-03-29 23:49:08
+ * @LastEditTime: 2022-03-30 22:14:14
  * @FilePath: \vue3_cms\src\global\plugins\pluginElement.js
  *  -> The best way to explain it is to do it
  */
@@ -37,6 +37,7 @@ import {
   ElBreadcrumbItem,
   ElTable,
   ElTableColumn,
+  ElPagination,
 } from 'element-plus';
 import {
   Edit,
@@ -50,8 +51,10 @@ import {
   Close,
   Cpu,
   Search,
+  Delete,
 } from '@element-plus/icons-vue';
 const components = [
+  ElPagination,
   ElTable,
   ElTableColumn,
   ElBreadcrumb,
@@ -94,6 +97,7 @@ const components = [
   Close,
   Cpu,
   Search,
+  Delete,
 ];
 
 export default function (app) {

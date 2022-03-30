@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-19 23:38:26
- * @LastEditTime: 2022-03-29 21:00:52
+ * @LastEditTime: 2022-03-30 16:30:27
  * @FilePath: \vue3_cms\src\components\navHeader\NavHeader.vue
  *  -> The best way to explain it is to do it
 -->
@@ -35,7 +35,7 @@ export default defineComponent({
   name: 'navHeader',
   emits: ['foldChange'],
   setup(props, { emit }) {
-    const isFold = ref(false);
+    const isFold = ref(true);
     const handleFoldClick = () => {
       isFold.value = !isFold.value;
       emit('foldChange', isFold.value);

@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-18 17:41:48
- * @LastEditTime: 2022-03-28 23:39:35
+ * @LastEditTime: 2022-03-30 16:29:28
  * @FilePath: \vue3_cms\src\views\main\Main.vue
  *  -> The best way to explain it is to do it
 -->
@@ -38,7 +38,7 @@ export default defineComponent({
   name: 'Main',
   components: { NavMenu, NavHeader },
   setup() {
-    const isCollapse = ref(false);
+    const isCollapse = ref(true);
     const handleFoldChange = isFold => {
       isCollapse.value = isFold;
     };
