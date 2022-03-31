@@ -1,11 +1,11 @@
 /*
  * @Author: qin
  * @Date: 2022-03-22 22:07:42
- * @LastEditTime: 2022-03-25 20:17:48
+ * @LastEditTime: 2022-03-30 23:15:18
  * @FilePath: \vue3_cms\src\views\main\system\user\formConfig.js
  *  -> The best way to explain it is to do it
  */
-const formConfig = {
+const formSearchConfig = {
   labelWidth: '120px',
   itemStyle: {
     padding: '20px 30px',
@@ -66,4 +66,4 @@ const formConfig = {
   ],
 };
 
-export default formConfig;
+export default formSearchConfig;

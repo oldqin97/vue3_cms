@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-29 21:54:54
- * @LastEditTime: 2022-03-29 22:00:00
+ * @LastEditTime: 2022-03-30 23:33:45
  * @FilePath: \vue3_cms\src\components\pageSearch\src\PageSearch.vue
  *  -> The best way to explain it is to do it
 -->
@@ -10,7 +10,7 @@
   <div class="page-search">
     <o-q-form v-bind="formConfig" v-model="formData">
       <template #header>
-        <h1>高级检索</h1>
+        <h1 class="search-title">高级检索</h1>
       </template>
       <template #footer>
         <el-button type="primary" icon="Edit">重置</el-button>
@@ -24,8 +24,6 @@
 import { defineComponent, ref } from 'vue';
 
 import OQForm from '@/base-ui/form';
-import formConfig from '@/views/main/system/user/formConfig';
-formConfig;
 export default defineComponent({
   name: 'PageSearch',
   components: {
@@ -52,4 +50,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+}
+</style>
