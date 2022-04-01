@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-29 22:10:51
- * @LastEditTime: 2022-03-29 23:42:35
+ * @LastEditTime: 2022-03-31 17:06:24
  * @FilePath: \vue3_cms\src\store\main\system\index.js
  *  -> The best way to explain it is to do it
  */
@@ -14,7 +14,17 @@ const systemModule = {
     return {
       userList: [],
       userCount: 0,
+      roleList: [],
+      roleCount: 0,
     };
+  },
+  getters: {
+    pageListData(state) {
+      return pageName => state[`${pageName}List`];
+    },
+    pageListCount(state) {
+      return pageName => state[`${pageName}Count`];
+    },
   },
   mutations: {
     changeUserList(state, userList) {
@@ -26,25 +36,54 @@ const systemModule = {
       LocalCache.setCache('userCount', userCount);
       state.userCount = userCount;
     },
+
+    changeRoleList(state, roleList) {
+      LocalCache.setCache('roleList', roleList);
+      state.roleList = roleList;
+    },
+
+    changeRoleCount(state, roleCount) {
+      LocalCache.setCache('roleCount', roleCount);
+      state.roleCount = roleCount;
+    },
   },
   actions: {
     async getPageListAction({ commit }, payload) {
-      // ~ 发送请求
-      const userList = LocalCache.getCache('userList');
-      const userCount = LocalCache.getCache('userCount');
+      const pageName = payload?.pageName;
+      let pageUrl = '';
 
-      if (!userList) {
-        const pageResult = await getPageListData(
-          payload.pageUrl,
-          payload.queryInfo,
-        );
-        const { list, totalCount } = pageResult?.data;
-        commit('changeUserList', list);
-        commit('changeUserCount', totalCount);
-      } else {
-        commit('changeUserList', userList);
-        commit('changeUserCount', userCount);
+      switch (pageName) {
+        case 'user':
+          pageUrl = '/users/list';
+          break;
+        case 'role':
+          pageUrl = '/role/list';
+          break;
       }
+      const changePageName =
+        pageName.slice(0, 1).toUpperCase() + pageName.slice(1);
+
+      // ~ 发送请求
+
+      console.log('enter');
+      const pageResult = await getPageListData(
+        pageUrl,
+        payload.queryInfo,
+      );
+      const { list, totalCount } = pageResult?.data;
+      commit(`change${changePageName}List`, list);
+      commit(`change${changePageName}Count`, totalCount);
+
+      // switch (pageName) {
+      //   case 'user':
+      //     commit(`change${changePageName}List`, userList);
+      //     commit(`change${changePageName}Count`, userCount);
+      //     break;
+      //   case 'role':
+      //     commit(`change${changePageName}List`, roleList);
+      //     commit(`change${changePageName}Count`, roleCount);
+      //     break;
+      // }
     },
   },
 };

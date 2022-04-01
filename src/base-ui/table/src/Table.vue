@@ -1,8 +1,8 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-30 00:15:13
- * @LastEditTime: 2022-03-30 22:54:00
- * @FilePath: \vue3_cms\src\base-ui\table\src\table.vue
+ * @LastEditTime: 2022-03-31 17:21:06
+ * @FilePath: \vue3_cms\src\base-ui\table\src\Table.vue
  *  -> The best way to explain it is to do it
 -->
 <template>
@@ -15,6 +15,7 @@
         </div>
       </slot>
     </div>
+
     <el-table
       :data="listData"
       border
@@ -26,6 +27,7 @@
         type="selection"
         align="center"
       ></el-table-column>
+
       <el-table-column
         v-if="showIndexColumn"
         type="index"
@@ -33,8 +35,13 @@
         align="center"
         width="70"
       ></el-table-column>
+
       <template v-for="item in propsList" :key="item.prop">
-        <el-table-column v-bind="item" align="center">
+        <el-table-column
+          v-bind="item"
+          align="center"
+          show-overflow-tooltip
+        >
           <template #default="scopeData">
             <slot :name="item.slotName" :rowData="scopeData.row">
               {{ scopeData.row[item.prop] }}
@@ -44,6 +51,7 @@
         </el-table-column>
       </template>
     </el-table>
+
     <div class="footer">
       <slot name="footer">
         <el-pagination
@@ -84,7 +92,7 @@ export default defineComponent({
     },
     propsList: {
       type: Object,
-      required: true,
+      // required: true,
     },
     showIndexColumn: {
       type: Boolean,

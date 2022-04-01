@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-22 17:48:03
- * @LastEditTime: 2022-03-29 21:52:15
+ * @LastEditTime: 2022-03-31 22:08:44
  * @FilePath: \vue3_cms\src\base-ui\form\src\Form.vue
  *  -> The best way to explain it is to do it
 -->
@@ -24,7 +24,10 @@
                 <el-input
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="
+                    handleValueChange($event, item.field)
+                  "
                 />
               </template>
 
@@ -33,7 +36,10 @@
                 <el-select
                   :placeholder="item.placeholder"
                   style="width: 100%"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="
+                    handleValueChange($event, item.field)
+                  "
                 >
                   <el-option
                     v-for="option in item.options"
@@ -50,7 +56,10 @@
                 <el-date-picker
                   style="width: 100%"
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="
+                    handleValueChange($event, item.field)
+                  "
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -65,7 +74,7 @@
 </template>
 
 <script>
-import { defineComponent, watch, ref } from 'vue';
+import { defineComponent, watch, ref, computed } from 'vue';
 
 export default defineComponent({
   name: 'Form',
@@ -108,19 +117,31 @@ export default defineComponent({
     //   // },
     // });
 
-    const formData = ref({ ...props.modelValue });
+    // const formData = ref({ ...props.modelValue });
+    // watch(
+    //   formData,
+    //   newValue => {
+    //     emit('update:modelValue', newValue);
+    //   },
+    //   {
+    //     deep: true,
+    //   },
+    // );
 
-    watch(
-      formData,
-      newValue => {
-        emit('update:modelValue', newValue);
-      },
-      {
-        deep: true,
-      },
-    );
+    const handleValueChange = (value, field) => {
+      // console.log({
+      //   ...props.modelValue,
+      //   [field]: value,
+      // });
+
+      emit('update:modelValue', {
+        ...props.modelValue,
+        [field]: value,
+      });
+    };
+
     return {
-      formData,
+      handleValueChange,
     };
   },
 });

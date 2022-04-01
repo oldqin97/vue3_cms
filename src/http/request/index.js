@@ -1,11 +1,14 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 20:09:22
- * @LastEditTime: 2022-03-29 23:11:13
+ * @LastEditTime: 2022-03-31 17:45:00
  * @FilePath: \vue3_cms\src\http\request\index.js
  *  -> The best way to explain it is to do it
  */
 import axios from 'axios';
+import { ElLoading } from 'element-plus';
+
+const DEFAULT_LOADING = true;
 
 let source = {};
 let requestList = [];
@@ -30,6 +33,7 @@ class OQRequest {
   constructor(config) {
     this.instance = axios.create(config);
     this.hooks = config.hooks;
+    this.showLoading = config.showLoading ?? DEFAULT_LOADING;
 
     // ~ 每个实例的config配置的拦截器
     this.instance.interceptors.request.use(
@@ -45,6 +49,13 @@ class OQRequest {
     this.instance.interceptors.request.use(
       config => {
         // console.log('全局请求拦截器成功');
+        if (this.showLoading) {
+          this.loading = ElLoading.service({
+            lock: true,
+            text: '正在请求数据',
+            background: 'rgba(0, 0, 0, 0.5)',
+          });
+        }
         return config;
       },
       err => {
@@ -55,6 +66,8 @@ class OQRequest {
     this.instance.interceptors.response.use(
       res => {
         // console.log('全局响应拦截器成功');
+        this.loading?.close();
+
         if (res.config?.url) {
           let url = JSON.stringify(res.config.url);
           requestList = requestList.filter(item => {
@@ -65,6 +78,7 @@ class OQRequest {
       },
       err => {
         // console.log('全局响应拦截器失败');
+        this.loading?.close();
         return err;
       },
     );
@@ -72,8 +86,13 @@ class OQRequest {
 
   request(config) {
     return new Promise((resolve, reject) => {
+      // + 单个请求hooks的处理
       if (config.hooks?.requestInterceptor) {
         config = config.hooks.requestInterceptor(config);
+      }
+
+      if (config.showLoading === false) {
+        this.showLoading = config.showLoading;
       }
 
       if (requestList.length) {
@@ -93,9 +112,12 @@ class OQRequest {
           if (config.hooks?.responseInterceptor) {
             res = config.hooks?.responseInterceptor(res);
           }
+
+          this.showLoading = DEFAULT_LOADING;
           resolve(res);
         })
         .catch(err => {
+          this.showLoading = DEFAULT_LOADING;
           reject(err);
         });
     });
