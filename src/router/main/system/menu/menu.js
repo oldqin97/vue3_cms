@@ -5,10 +5,11 @@
  * @FilePath: \vue3_cms\src\router\main\system\menu\menu.js
  *  -> The best way to explain it is to do it
  */
-const Menu = () => import('@/views/main/system/menu/Menu.vue')
+
+const Menu = () => import('@/views/main/system/menu/menu.vue');
 export default {
   path: '/main/system/menu',
   name: 'menu',
   component: Menu,
-  children: []
-}
+  children: [],
+};
