@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-30 00:15:13
- * @LastEditTime: 2022-03-31 17:21:06
+ * @LastEditTime: 2022-04-06 01:48:59
  * @FilePath: \vue3_cms\src\base-ui\table\src\Table.vue
  *  -> The best way to explain it is to do it
 -->
@@ -18,9 +18,9 @@
 
     <el-table
       :data="listData"
-      border
       style="width: 100%"
       @selection-change="handleSelectChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectColumn"
@@ -78,6 +78,10 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    listData: {
+      type: Object,
+      required: true,
+    },
     page: {
       type: Object,
       default: _ => ({ currentPage: 0, pageSize: 10 }),
@@ -86,10 +90,7 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    listData: {
-      type: Object,
-      required: true,
-    },
+
     propsList: {
       type: Object,
       // required: true,
@@ -102,15 +103,28 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    showFooter: {
+      type: Boolean,
+      default: true,
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({}),
+    },
   },
-  emits: ['selectData'],
+  emits: ['selectData', 'update:page'],
   setup(props, { emit }) {
+    console.log(props.listData);
     const handleSelectChange = rowData => {
       console.log(rowData);
       emit('selectData', rowData);
     };
-    const handleSizeChange = () => {};
-    const handleCurrentChange = () => {};
+    const handleSizeChange = pageSize => {
+      emit('update:page', { ...props.page, pageSize });
+    };
+    const handleCurrentChange = currentPage => {
+      emit('update:page', { ...props.page, currentPage });
+    };
     return {
       handleSelectChange,
       handleCurrentChange,

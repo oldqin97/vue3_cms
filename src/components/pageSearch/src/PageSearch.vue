@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-29 21:54:54
- * @LastEditTime: 2022-03-31 21:57:36
+ * @LastEditTime: 2022-04-01 17:20:39
  * @FilePath: \vue3_cms\src\components\pageSearch\src\PageSearch.vue
  *  -> The best way to explain it is to do it
 -->
@@ -17,7 +17,9 @@
           <el-button type="primary" icon="Edit" @click="handleReset"
             >重置</el-button
           >
-          <el-button type="primary" icon="Search">搜索</el-button>
+          <el-button type="primary" icon="Search" @click="handleQuery"
+            >搜索</el-button
+          >
         </div>
       </template>
     </o-q-form>
@@ -39,7 +41,8 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  emits: ['resetBtnClick', 'queryBtnClick'],
+  setup(props, { emit }) {
     // + 双向绑定的属性应该由配置文件的field来决定的
     const formItems = props.formConfig?.formItems ?? [];
     const formOriginData = {};
@@ -51,10 +54,18 @@ export default defineComponent({
     // + 当用户点击重置按钮
     const handleReset = () => {
       formData.value = formOriginData;
+      emit('resetBtnClick');
     };
+
+    // + 当用户点击搜索按钮
+    const handleQuery = () => {
+      emit('queryBtnClick', formData.value);
+    };
+
     return {
       formData,
       handleReset,
+      handleQuery,
     };
   },
 });

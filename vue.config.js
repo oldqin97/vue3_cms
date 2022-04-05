@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 20:50:53
- * @LastEditTime: 2022-03-20 22:23:52
+ * @LastEditTime: 2022-04-05 18:27:09
  * @FilePath: \vue3_cms\vue.config.js
  *  -> The best way to explain it is to do it
  */
@@ -43,9 +43,5 @@ module.exports = {
   //     views: '@/views'
   //   }
   // },
-  // chainWebpack: config => {
-  //   config.resolve.alias
-  //     .set('@', path.resolve(__dirname, 'src'))
-  //     .set('views', '@/views');
-  // },
+  // chainWebpack: config => {},
 };
