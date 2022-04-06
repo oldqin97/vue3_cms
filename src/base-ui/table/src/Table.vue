@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-30 00:15:13
- * @LastEditTime: 2022-04-06 01:48:59
+ * @LastEditTime: 2022-04-06 10:57:16
  * @FilePath: \vue3_cms\src\base-ui\table\src\Table.vue
  *  -> The best way to explain it is to do it
 -->
@@ -33,7 +33,7 @@
         type="index"
         label="序号"
         align="center"
-        width="70"
+        width="50"
       ></el-table-column>
 
       <template v-for="item in propsList" :key="item.prop">
@@ -52,7 +52,7 @@
       </template>
     </el-table>
 
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
           @size-change="handleSizeChange"
@@ -93,7 +93,7 @@ export default defineComponent({
 
     propsList: {
       type: Object,
-      // required: true,
+      required: true,
     },
     showIndexColumn: {
       type: Boolean,
@@ -114,9 +114,7 @@ export default defineComponent({
   },
   emits: ['selectData', 'update:page'],
   setup(props, { emit }) {
-    console.log(props.listData);
     const handleSelectChange = rowData => {
-      console.log(rowData);
       emit('selectData', rowData);
     };
     const handleSizeChange = pageSize => {

@@ -1,19 +1,23 @@
 /*
  * @Author: qin
  * @Date: 2022-03-29 22:10:51
- * @LastEditTime: 2022-04-06 01:39:20
+ * @LastEditTime: 2022-04-06 12:02:47
  * @FilePath: \vue3_cms\src\store\main\system\index.js
  *  -> The best way to explain it is to do it
  */
 
-import { getPageListData } from '@/http/main/system';
+import {
+  getPageListData,
+  deletePageDataById,
+} from '@/http/main/system';
 import LocalCache from '@/utils/Cache.js';
+
 const systemModule = {
   namespaced: true,
   state() {
     return {
-      userList: [],
-      userCount: 0,
+      usersList: [],
+      usersCount: 0,
       roleList: [],
       roleCount: 0,
       goodsList: [],
@@ -33,14 +37,14 @@ const systemModule = {
     },
   },
   mutations: {
-    changeUserList(state, userList) {
-      LocalCache.setCache('userList', userList);
-      state.userList = userList;
+    changeUsersList(state, usersList) {
+      LocalCache.setCache('usersList', usersList);
+      state.usersList = usersList;
     },
 
-    changeUserCount(state, userCount) {
-      LocalCache.setCache('userCount', userCount);
-      state.userCount = userCount;
+    changeUsersCount(state, usersCount) {
+      LocalCache.setCache('usersCount', usersCount);
+      state.usersCount = usersCount;
     },
 
     changeRoleList(state, roleList) {
@@ -77,7 +81,7 @@ const systemModule = {
       let pageUrl = '';
 
       switch (pageName) {
-        case 'user':
+        case 'users':
           pageUrl = '/users/list';
           break;
         case 'role':
@@ -112,6 +116,28 @@ const systemModule = {
       //     commit(`change${changePageName}Count`, roleCount);
       //     break;
       // }
+    },
+
+    async deletePageDataAction({ dispatch }, payload) {
+      // ? pageName -> /users
+      // ? id -> /users/id
+
+      // + 拼接url
+      let { pageName, id } = payload;
+      const pageUrl = `/${pageName}/${id}`;
+
+      // + 调用网络请求
+      const data = await deletePageDataById(pageUrl);
+
+      // + 重新请求新的数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      });
+      return data;
     },
   },
 };

@@ -1,14 +1,17 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 02:06:03
- * @LastEditTime: 2022-03-29 22:53:34
+ * @LastEditTime: 2022-04-06 10:57:59
  * @FilePath: \vue3_cms\src\store\login\login.js
  *  -> The best way to explain it is to do it
  */
 
 import router from '@/router';
 
-import { mapMenusToRoutes } from '@/utils/MapMenus.js';
+import {
+  mapMenusToRoutes,
+  mapMenusToPermissions,
+} from '@/utils/MapMenus.js';
 
 import {
   accountLoginRequest,
@@ -25,6 +28,7 @@ const loginModule = {
       token: '',
       userInfo: {},
       userMenus: [],
+      permissions: [],
     };
   },
   getters: {},
@@ -44,6 +48,10 @@ const loginModule = {
       routes.forEach(route => {
         router.addRoute('main', route);
       });
+
+      // + 获取用户按钮权限
+      const permissions = mapMenusToPermissions(userMenus);
+      state.permissions = permissions;
     },
   },
   actions: {

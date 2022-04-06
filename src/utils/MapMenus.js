@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 22:21:40
- * @LastEditTime: 2022-03-29 21:23:13
+ * @LastEditTime: 2022-04-06 10:54:25
  * @FilePath: \vue3_cms\src\utils\MapMenus.js
  *  -> The best way to explain it is to do it
  */
@@ -66,6 +66,23 @@ export function pathMapBreadcrumbs(userMenus, currentPath) {
   const breadcrumbs = [];
   pathMapToMenu(userMenus, currentPath, breadcrumbs);
   return breadcrumbs;
+}
+
+export function mapMenusToPermissions(userMenus) {
+  const permissions = [];
+
+  const _recurseGetPermissions = menus => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetPermissions(menu.children ?? []);
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission);
+      }
+    }
+  };
+  _recurseGetPermissions(userMenus);
+
+  return permissions;
 }
 
 export { firstMenu };

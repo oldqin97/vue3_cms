@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-04-06 01:17:58
- * @LastEditTime: 2022-04-06 01:43:44
+ * @LastEditTime: 2022-04-06 10:40:55
  * @FilePath: \vue3_cms\src\views\main\system\menu\config\menuConfig.js
  *  -> The best way to explain it is to do it
  */
@@ -30,14 +30,15 @@ const menuConfig = {
       minWidth: '100',
     },
   ],
-  showIndexColumn: false,
-  showSelectColumn: false,
   childrenProps: {
     rowKey: 'id',
     treeProp: {
       children: 'children',
     },
   },
+  showIndexColumn: false,
+  showSelectColumn: false,
+  showFooter: false,
 };
 
 export default menuConfig;
