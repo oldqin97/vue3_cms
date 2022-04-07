@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-20 21:01:24
- * @LastEditTime: 2022-04-06 22:31:31
+ * @LastEditTime: 2022-04-07 22:18:10
  * @FilePath: \vue3_cms\src\views\main\system\user\user.vue
  *  -> The best way to explain it is to do it
 -->
@@ -24,6 +24,7 @@
 
     <page-model
       ref="pageModelRef"
+      :default-info="defaultInfo"
       :modal-config="modalConfig"
     ></page-model>
   </div>
@@ -40,6 +41,7 @@ import formSearchConfig from './formConfig';
 import contentTableConfig from './contentConfig';
 import modalConfig from './model.config';
 import usePageSearch from '@/hooks/usePageSearch.js';
+import usePageModel from '@/hooks/usePageModel.js';
 
 export default defineComponent({
   name: 'user',
@@ -48,17 +50,11 @@ export default defineComponent({
     const [pageContentRef, handleResetClick, handleQueryClick] =
       usePageSearch();
 
-    const pageModelRef = ref();
-
-    const listenNewData = () => {
-      pageModelRef.value.dialogVisible = true;
-    };
-    const listenEdit = data => {
-      pageModelRef.value.dialogVisible = true;
-      console.log(data);
-    };
+    const [pageModelRef, defaultInfo, listenEdit, listenNewData] =
+      usePageModel();
 
     return {
+      defaultInfo,
       formSearchConfig,
       contentTableConfig,
       pageContentRef,
