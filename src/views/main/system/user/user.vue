@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-20 21:01:24
- * @LastEditTime: 2022-04-07 22:18:10
+ * @LastEditTime: 2022-04-08 00:40:28
  * @FilePath: \vue3_cms\src\views\main\system\user\user.vue
  *  -> The best way to explain it is to do it
 -->
@@ -25,13 +25,15 @@
     <page-model
       ref="pageModelRef"
       :default-info="defaultInfo"
-      :modal-config="modalConfig"
+      :modal-config="modalConfigComputed"
+      page-name="users"
     ></page-model>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 
 import PageSearch from '@/components/pageSearch';
 import PageContent from '@/components/pageContent';
@@ -50,15 +52,47 @@ export default defineComponent({
     const [pageContentRef, handleResetClick, handleQueryClick] =
       usePageSearch();
 
+    // + 动态添加部门和角色列表
+    const store = useStore();
+    const modalConfigComputed = computed(() => {
+      const departMentItem = modalConfig.formItems.find(
+        item => item.field === 'departmentId',
+      );
+      departMentItem.options = store.state.entireDepartment.map(
+        item => ({ title: item.name, value: item.id }),
+      );
+
+      const roleItem = modalConfig.formItems.find(
+        item => item.field === 'roleId',
+      );
+      roleItem.options = store.state.entireRole.map(item => ({
+        title: item.name,
+        value: item.id,
+      }));
+      return modalConfig;
+    });
+
+    const newCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        item => item.field === 'password',
+      );
+      passwordItem.isHidden = false;
+    };
+    const editCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        item => item.field === 'password',
+      );
+      passwordItem.isHidden = true;
+    };
     const [pageModelRef, defaultInfo, listenEdit, listenNewData] =
-      usePageModel();
+      usePageModel(newCallback, editCallback);
 
     return {
       defaultInfo,
       formSearchConfig,
       contentTableConfig,
       pageContentRef,
-      modalConfig,
+      modalConfigComputed,
       pageModelRef,
       handleResetClick,
       handleQueryClick,

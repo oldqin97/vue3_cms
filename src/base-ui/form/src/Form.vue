@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-22 17:48:03
- * @LastEditTime: 2022-04-01 16:48:07
+ * @LastEditTime: 2022-04-07 23:42:16
  * @FilePath: \vue3_cms\src\base-ui\form\src\Form.vue
  *  -> The best way to explain it is to do it
 -->
@@ -14,7 +14,12 @@
       <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
-            <el-form-item :label="item.label" :style="itemStyle">
+            <el-form-item
+              :label="item.label"
+              :style="itemStyle"
+              :rule="item.rules"
+              v-if="!item.isHidden"
+            >
               <!-- el-input -->
               <template
                 v-if="
@@ -44,6 +49,7 @@
                   <el-option
                     v-for="option in item.options"
                     :value="option.value"
+                    :label="option.title"
                     :key="option.value"
                   >
                     {{ option.title }}

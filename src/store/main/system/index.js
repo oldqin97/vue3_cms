@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-29 22:10:51
- * @LastEditTime: 2022-04-06 12:02:47
+ * @LastEditTime: 2022-04-08 00:33:25
  * @FilePath: \vue3_cms\src\store\main\system\index.js
  *  -> The best way to explain it is to do it
  */
@@ -9,6 +9,8 @@
 import {
   getPageListData,
   deletePageDataById,
+  createPageData,
+  editPageData,
 } from '@/http/main/system';
 import LocalCache from '@/utils/Cache.js';
 
@@ -138,6 +140,37 @@ const systemModule = {
         },
       });
       return data;
+    },
+    // ~ 新建用户
+    async createPageDataAction({ dispatch }, payload) {
+      console.log(payload);
+      const { pageName, newData } = payload;
+      const pageUrl = `/${pageName}`;
+
+      await createPageData(pageUrl, newData);
+      // + 请求最新的数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      });
+    },
+    // ~ 编辑用户
+    async editPageDataAction({ dispatch }, payload) {
+      const { pageName, editData, id } = payload;
+      let pageUrl = `/${pageName}/${id}`;
+
+      await editPageData(pageUrl, editData);
+      // + 重新请求数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      });
     },
   },
 };
