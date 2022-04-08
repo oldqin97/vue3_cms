@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 02:06:03
- * @LastEditTime: 2022-04-06 10:57:59
+ * @LastEditTime: 2022-04-08 15:45:59
  * @FilePath: \vue3_cms\src\store\login\login.js
  *  -> The best way to explain it is to do it
  */
@@ -56,12 +56,15 @@ const loginModule = {
   },
   actions: {
     // ~ 登录接口
-    async accountLoginAction({ commit }, payload) {
+    async accountLoginAction({ commit, dispatch }, payload) {
       // + 实现登录逻辑
       const loginResult = await accountLoginRequest(payload);
       const { id, token } = loginResult.data;
       commit('changeToken', token);
       localCache.setCache('token', token);
+
+      // + 发送初始化请求, 完整的role/department
+      dispatch('getInitialDataAction', null, { root: true });
 
       // + 请求用户信息
       const userInfoResult = await requestUserInfoById(id);
@@ -80,13 +83,14 @@ const loginModule = {
     },
 
     // ~ 持久化token , userInfo , userMenus
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token');
       const userInfo = localCache.getCache('userInfo');
       const userMenus = localCache.getCache('userMenus');
 
       if (token) {
         commit('changeToken', token);
+        dispatch('getInitialDataAction', null, { root: true });
       }
 
       if (userInfo) {

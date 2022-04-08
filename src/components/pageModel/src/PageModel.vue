@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-04-06 21:34:33
- * @LastEditTime: 2022-04-08 00:27:28
+ * @LastEditTime: 2022-04-08 23:32:45
  * @FilePath: \vue3_cms\src\components\pageModel\src\PageModel.vue
  *  -> The best way to explain it is to do it
 -->
@@ -15,6 +15,7 @@
       center
     >
       <oq-form v-bind="modalConfig" v-model="formData"></oq-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button type="primary" @click="handleConfirm"
@@ -50,6 +51,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    otherInfo: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   setup(props) {
@@ -75,16 +80,16 @@ export default defineComponent({
         // 编辑
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
-          editData: { ...formData.value },
+          editData: { ...formData.value, ...props.otherInfo },
           id: props.defaultInfo.id,
         });
       } else {
         // 新建
-        console.log(formData.value);
+        console.log({ ...formData.value, ...props.otherInfo });
 
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value },
+          newData: { ...formData.value, ...props.otherInfo },
         });
       }
     };

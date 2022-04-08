@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-18 22:21:40
- * @LastEditTime: 2022-04-06 10:54:25
+ * @LastEditTime: 2022-04-08 23:23:22
  * @FilePath: \vue3_cms\src\utils\MapMenus.js
  *  -> The best way to explain it is to do it
  */
@@ -83,6 +83,24 @@ export function mapMenusToPermissions(userMenus) {
   _recurseGetPermissions(userMenus);
 
   return permissions;
+}
+
+export function menuMapLeafKeys(menuList) {
+  const leftKeys = [];
+
+  const _recurseGetLeaf = menuList => {
+    for (let menu of menuList) {
+      if (menu.children) {
+        _recurseGetLeaf(menu.children);
+      } else {
+        leftKeys.push(menu.id);
+      }
+    }
+  };
+
+  _recurseGetLeaf(menuList);
+
+  return leftKeys;
 }
 
 export { firstMenu };

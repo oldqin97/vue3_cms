@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:32:41
- * @LastEditTime: 2022-04-07 23:16:00
+ * @LastEditTime: 2022-04-08 16:35:15
  * @FilePath: \vue3_cms\src\store\index.js
  *  -> The best way to explain it is to do it
  */
@@ -17,6 +17,7 @@ const store = createStore({
     return {
       entireDepartment: [],
       entireRole: [],
+      entireMenu: [],
     };
   },
   mutations: {
@@ -27,8 +28,12 @@ const store = createStore({
     changeEntireRole(state, list) {
       state.entireRole = list;
     },
+    changeEntireMenu(state, list) {
+      state.entireMenu = list;
+    },
   },
   getters: {},
+
   actions: {
     async getInitialDataAction({ commit }) {
       // + 请求角色数据
@@ -40,14 +45,19 @@ const store = createStore({
         },
       );
       const { list: departmentList } = departMentResult.data;
+
       const roleResult = await getPageListData('/role/list', {
         offset: 0,
         size: 1000,
       });
       const { list: roleList } = roleResult.data;
 
+      const menuResult = await getPageListData('/menu/list', {});
+      const { list: menuList } = menuResult.data;
+
       commit('changeEntireDepartment', departmentList);
       commit('changeEntireRole', roleList);
+      commit('changeEntireMenu', menuList);
     },
   },
   modules: {

@@ -1,16 +1,35 @@
+<!--
+ * @Author: qin
+ * @Date: 2022-04-06 01:54:20
+ * @LastEditTime: 2022-04-09 00:46:48
+ * @FilePath: \vue3_cms\src\views\main\analysis\dashboard\dashboard.vue
+ *  -> The best way to explain it is to do it
+-->
 <template>
   <div class="dashboard">
-    <h2>dashboard</h2>
+    <div ref="tableRef" style="width: 500px; height: 300px"></div>
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import * as echarts from 'echarts';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'dashboard',
   setup() {
-    return {};
+    const tableRef = ref();
+    onMounted(() => {
+      const echartsInstance = echarts.init(tableRef.value, 'light', {
+        renderer: 'svg',
+      });
+
+      
+    });
+
+    return {
+      tableRef,
+    };
   },
 });
 </script>

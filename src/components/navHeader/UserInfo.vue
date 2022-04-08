@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-22 00:11:36
- * @LastEditTime: 2022-03-22 00:32:48
+ * @LastEditTime: 2022-04-08 15:40:36
  * @FilePath: \vue3_cms\src\components\navHeader\UserInfo.vue
  *  -> The best way to explain it is to do it
 -->
@@ -21,7 +21,9 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="close">退出登录</el-dropdown-item>
+          <el-dropdown-item icon="close" @click="handleExit"
+            >退出登录</el-dropdown-item
+          >
           <el-dropdown-item divided icon="user"
             >用户信息</el-dropdown-item
           >
@@ -34,17 +36,25 @@
 
 <script>
 import { computed, defineComponent, reactive } from 'vue';
-
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
+import localCache from '@/utils/Cache.js';
 export default defineComponent({
   name: 'UserInfo',
   setup() {
     const store = useStore();
     const name = computed(() => store.state.login.userInfo.name);
 
+    const router = useRouter();
+    const handleExit = () => {
+      localCache.deleteCache('token');
+      router.push('/main');
+    };
+
     return {
       name,
+      handleExit,
     };
   },
 });

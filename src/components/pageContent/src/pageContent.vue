@@ -1,7 +1,7 @@
 <!--
  * @Author: qin
  * @Date: 2022-03-30 23:17:50
- * @LastEditTime: 2022-04-06 22:09:10
+ * @LastEditTime: 2022-04-08 16:10:51
  * @FilePath: \vue3_cms\src\components\pageContent\src\pageContent.vue
  *  -> The best way to explain it is to do it
 -->
@@ -118,7 +118,6 @@ export default defineComponent({
 
     const getPageData = queryInfo => {
       if (!isQuery) {
-        console.log('enter');
         return;
       }
       store.dispatch('system/getPageListAction', {
