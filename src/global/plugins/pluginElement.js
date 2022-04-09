@@ -1,7 +1,7 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 23:16:58
- * @LastEditTime: 2022-04-05 23:07:44
+ * @LastEditTime: 2022-04-08 16:24:17
  * @FilePath: \vue3_cms\src\global\plugins\pluginElement.js
  *  -> The best way to explain it is to do it
  */
@@ -39,6 +39,9 @@ import {
   ElTableColumn,
   ElPagination,
   ElImage,
+  ElDialog,
+  ElTree,
+  ElCard,
 } from 'element-plus';
 import {
   Edit,
@@ -55,6 +58,9 @@ import {
   Delete,
 } from '@element-plus/icons-vue';
 const components = [
+  ElCard,
+  ElTree,
+  ElDialog,
   ElImage,
   ElPagination,
   ElTable,

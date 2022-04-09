@@ -1,16 +1,15 @@
 /*
  * @Author: qin
  * @Date: 2022-03-16 20:50:53
- * @LastEditTime: 2022-04-05 18:27:09
+ * @LastEditTime: 2022-04-08 22:40:21
  * @FilePath: \vue3_cms\vue.config.js
  *  -> The best way to explain it is to do it
  */
 const path = require('path');
 
 module.exports = {
-  outputDir: './build',
-  // publicPath: "./",
-
+  outputDir: './admin',
+  // publicPath: "/admin/",
   configureWebpack: {
     resolve: {
       alias: {
