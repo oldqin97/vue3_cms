@@ -41,6 +41,7 @@ import {
   ElImage,
   ElDialog,
   ElTree,
+  ElCard,
 } from 'element-plus';
 import {
   Edit,
@@ -57,6 +58,7 @@ import {
   Delete,
 } from '@element-plus/icons-vue';
 const components = [
+  ElCard,
   ElTree,
   ElDialog,
   ElImage,
